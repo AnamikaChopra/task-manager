@@ -1,0 +1,112 @@
+import { useState } from "react";
+
+export default function TaskItem({ task, onToggle, onUpdate, onDelete }) {
+  const [editing, setEditing] = useState(false);
+  const [title, setTitle] = useState(task.title);
+  const [description, setDescription] = useState(task.description);
+  const [dueDate, setDueDate] = useState(task.dueDate || "");
+
+  const isOverdue =
+    task.dueDate &&
+    !task.completed &&
+    new Date(task.dueDate) < new Date(new Date().toDateString());
+
+  function handleSave() {
+    if (!title.trim()) return alert("Title cannot be empty");
+    onUpdate(task.id, { title, description, dueDate: dueDate || null });
+    setEditing(false);
+  }
+
+  function handleCancel() {
+    setTitle(task.title);
+    setDescription(task.description);
+    setDueDate(task.dueDate || "");
+    setEditing(false);
+  }
+
+  if (editing) {
+    return (
+      <li className="task-item editing">
+        <div className="field">
+          <label>Title *</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            autoFocus
+          />
+        </div>
+        <div className="field">
+          <label>Description</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={2}
+          />
+        </div>
+        <div className="field">
+          <label>Due Date</label>
+          <input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+          />
+        </div>
+        <div className="form-actions">
+          <button className="btn btn-primary" onClick={handleSave}>
+            Save
+          </button>
+          <button className="btn btn-secondary" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
+      </li>
+    );
+  }
+
+  return (
+    <li className={`task-item ${task.completed ? "done" : ""} ${isOverdue ? "overdue" : ""}`}>
+      <div className="task-left">
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={() => onToggle(task.id, task.completed)}
+          className="checkbox"
+        />
+        <div className="task-content">
+          <span className="task-title">{task.title}</span>
+          {task.description && (
+            <span className="task-desc">{task.description}</span>
+          )}
+          <div className="task-meta">
+            {task.dueDate && (
+              <span className={`due-date ${isOverdue ? "overdue-text" : ""}`}>
+                📅 {isOverdue ? "Overdue: " : "Due: "}
+                {new Date(task.dueDate).toLocaleDateString()}
+              </span>
+            )}
+            <span className="created-at">
+              Added {new Date(task.createdAt).toLocaleDateString()}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="task-actions">
+        <button
+          className="btn btn-edit"
+          onClick={() => setEditing(true)}
+          title="Edit task"
+        >
+          ✏️
+        </button>
+        <button
+          className="btn btn-delete"
+          onClick={() => onDelete(task.id)}
+          title="Delete task"
+        >
+          🗑️
+        </button>
+      </div>
+    </li>
+  );
+}
