@@ -168,5 +168,5 @@ If I had more time, I would:
 
 ## Notes
 
-- I used AI tools (Claude) to help structure some boilerplate, but I wrote and understood every line of code myself.
+- I used AI tools  to help structure some boilerplate, but I wrote and understood every line of code myself.
 - The Vite proxy (`/api` → `localhost:5000`) means no CORS issues in development. In production, the frontend is configured to point to the deployed backend URL via environment variable.
