@@ -8,8 +8,8 @@ I chose Exercise 1 because I wanted to focus on getting the full-stack fundament
 
 ## Live Demo
 
-- **Frontend:** https://task-manager-client.vercel.app *(deploy and update this link)*
-- **Backend:** https://task-manager-server.onrender.com *(deploy and update this link)*
+- **Frontend:** https://task-manager-client.vercel.app
+- **Backend:** https://task-manager-server.onrender.com 
 
 ---
 
