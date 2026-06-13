@@ -6,12 +6,8 @@ I chose Exercise 1 because I wanted to focus on getting the full-stack fundament
 
 ---
 
-## Live Demo
 
-- **Frontend:** https://task-manager-client.vercel.app
-- **Backend:** https://task-manager-server.onrender.com 
 
----
 
 ## Tech Stack
 
